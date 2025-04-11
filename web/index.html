@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="indiazona">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+<script type="text/javascript">
+  var onloadCallback = function() {
+    alert("grecaptcha is ready!");
+  };
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+    async defer>
+</script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+    <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
+   <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+       apiKey: "AIzaSyBMhgCfdsmssQWCUxw9ivAV0PzX2Pm1H08",
+  authDomain: "indiazona-d54d0.firebaseapp.com",
+  projectId: "indiazona-d54d0",
+  storageBucket: "indiazona-d54d0.firebasestorage.app",
+  messagingSenderId: "855599824563",
+  appId: "1:855599824563:web:c16f34e081c1c874e7bac6",
+  measurementId: "G-M79SS02KKT"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
+
+  <title>indiazona</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <!-- Required for Firebase Phone Auth (Web) -->
+  <div id="recaptcha-container"></div>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

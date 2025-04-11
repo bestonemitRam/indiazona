@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "855599824563",
+    "project_id": "indiazona-d54d0",
+    "storage_bucket": "indiazona-d54d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855599824563:android:9144ac7844884144e7bac6",
+        "android_client_info": {
+          "package_name": "com.example.indiazona"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa8zycK9BrbMW8_vMe4kTQSpyTmxjKjBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
