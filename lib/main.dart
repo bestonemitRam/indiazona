@@ -6,33 +6,43 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:indiazona/src/logic/provider/auth_provider.dart';
 import 'package:indiazona/src/presentation/ui/auth/signup_screen_ui.dart';
 import 'package:provider/provider.dart';
-const kWebRecaptchaSiteKey = '6LfwYBQrAAAAABPp5fJO00R2KQ8zuq48eE-OAtMz';
+
+const kWebRecaptchaSiteKey = '6Lc7mhUrAAAAALvW8KWQcTu1lMPUlKWNNTILH_Sw';
 
 Future<void> main() async {
-  await Firebase.initializeApp(
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(
       options: const FirebaseOptions(
-          apiKey: "AIzaSyBMhgCfdsmssQWCUxw9ivAV0PzX2Pm1H08",
-          authDomain: "indiazona-d54d0.firebaseapp.com",
-          projectId: "indiazona-d54d0",
-          storageBucket: "indiazona-d54d0.firebasestorage.app",
-          messagingSenderId: "855599824563",
-          appId: "1:855599824563:web:c16f34e081c1c874e7bac6",
-          measurementId: "G-M79SS02KKT"));
-           try {
-  await FirebaseAppCheck.instance.activate(
-  webProvider: ReCaptchaV3Provider(
-    kWebRecaptchaSiteKey,
-   ),
- );
+       apiKey: "AIzaSyBVOlVAUZ7lT9DddBRW1JR8938DGpNqFf0",
+          authDomain: "indiazona-f3b2b.firebaseapp.com",
+          projectId: "indiazona-f3b2b",
+          storageBucket: "indiazona-f3b2b.firebasestorage.app",
+          messagingSenderId: "551163400627",
+          appId: "1:551163400627:web:4c506c424ad8804f46fbc6",
+          measurementId: "G-Q3Y2SRB0JL"
+      ),
+    );
+    print("Firebase initialization successful");
 
- } catch (e) {
-   print("Error with app check $e");
- }
+    // If you want to check Firebase App Check:
+   await FirebaseAppCheck.instance.activate(
+      webProvider: ReCaptchaV3Provider(
+          '6Lf9nhUrAAAAALGRlsmtgWCXpKGb6NECggSwxUUr'), // Replace with your real key
+    );
+    print("Firebase AppCheck initialized successfully");
+  } catch (e) {
+    print("Error initializing Firebase: $e");
+  }
+  
+  
 
-
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => AuthProvider()),
-  ], child: const MyApp()));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => AuthProvider()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -50,3 +60,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

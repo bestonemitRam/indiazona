@@ -1,15 +1,17 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:indiazona/src/data/user_model.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Store confirmationResult for web
+  
   ConfirmationResult? _confirmationResult;
   ConfirmationResult? get confirmationResult => _confirmationResult;
 
-  // For Android/iOS
+ 
   Future<void> verifyPhoneNumber({
     required String phoneNumber,
     required Function(PhoneAuthCredential) verificationCompleted,
@@ -57,4 +59,32 @@ class AuthService {
   }
 
   User? getCurrentUser() => _auth.currentUser;
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<void> saveUserData(UserModel user) async {
+    try {
+      await _firestore.collection('users').add(user.toJson());
+    } catch (e) {
+      throw Exception('Failed to save user: $e');
+    }
+  }
+
+  // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+
+ 
+
+  // ✅ Login user with email and password
+  Future<User?> loginUser(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return result.user;
+    } catch (e) {
+      throw Exception("Login failed: ${e.toString()}");
+    }
+  }
 }

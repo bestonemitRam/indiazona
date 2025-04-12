@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:indiazona/src/core/helper/extenstion.dart';
+import 'package:indiazona/src/data/user_model.dart';
 
 import 'package:indiazona/src/logic/services/auth_service.dart';
 
@@ -13,9 +15,16 @@ import 'package:indiazona/src/logic/services/auth_service.dart';
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kDebugMode, kIsWeb;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
+import 'package:indiazona/src/presentation/ui/store/create_store_ui.dart';
 
 class AuthProvider extends ChangeNotifier {
+  final TextEditingController refelController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confprasswordController = TextEditingController();
+
   final AuthService _authService = AuthService();
 
   String? _verificationId;
@@ -108,5 +117,85 @@ class AuthProvider extends ChangeNotifier {
         SnackBar(content: Text("Invalid OTP or verification failed")),
       );
     }
+  }
+
+  Future<void> submitUserData(BuildContext context) async {
+    final user = UserModel(
+      referenceCode: refelController.text.trim(),
+      name: nameController.text.trim(),
+      email: emailController.text.trim(),
+      phone: phoneController.text.trim(),
+    );
+
+    try {
+      _isLoading = true;
+      notifyListeners();
+
+      await _authService.saveUserData(user);
+
+      _isLoading = false;
+      notifyListeners();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("User data saved successfully")),
+      );
+
+      // Clear fields if needed
+      refelController.clear();
+      nameController.clear();
+      emailController.clear();
+      phoneController.clear();
+      passwordController.clear();
+      confprasswordController.clear();
+    } catch (e) {
+      _isLoading = false;
+      notifyListeners();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: ${e.toString()}")),
+      );
+    }
+  }
+
+  Future<void> loginUser(BuildContext context) async {
+    try {
+      _isLoading = true;
+      notifyListeners();
+
+      final email = emailController.text.trim();
+      final password = passwordController.text.trim();
+
+      final user = await _authService.loginUser(email, password);
+
+      _isLoading = false;
+      notifyListeners();
+
+      if (user != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Login successful!")),
+        );
+
+        Navigator.push(context,
+            CustomPageTransitions.slide(const SellerRegistrationScreen()));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("User not found!")),
+        );
+      }
+    } catch (e) {
+      _isLoading = false;
+      notifyListeners();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Login failed: ${e.toString()}")),
+      );
+    }
+  }
+
+  void disposeControllers() {
+    refelController.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+    confprasswordController.dispose();
   }
 }

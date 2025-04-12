@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:indiazona/src/core/helper/extenstion.dart';
 import 'package:indiazona/src/core/image/app_images.dart';
 import 'package:indiazona/src/logic/provider/auth_provider.dart';
+import 'package:indiazona/src/presentation/ui/auth/login.dart';
 import 'package:indiazona/src/presentation/ui/store/create_store_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +39,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20.h),
                       _buildTextField(
+                        controller: provider.refelController,
                         "Reference Code",
                         hint: "Enter the valid reference code",
                       ),
@@ -48,7 +50,9 @@ class RegisterScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600, fontSize: 18.sp),
                       ),
                       SizedBox(height: 12.h),
-                      _buildTextField("Name *",
+                      _buildTextField(
+                          controller: provider.nameController,
+                          "Name *",
                           hint: "Please write your name here"),
                       _buildTextField("Email ID *", hint: "abc@example.com"),
                       _buildTextField(
@@ -56,45 +60,61 @@ class RegisterScreen extends StatelessWidget {
                           "Mobile Number *",
                           hint: "+91",
                           suffix: TextButton(
-                              onPressed: () {}, child: Text("Send OTP"))),
-                      _buildTextField("Create Password *", obscure: true),
-                      _buildTextField("Confirm Password *", obscure: true),
+                              onPressed: () {
+                                provider.sendOtp(context);
+                              },
+                              child: Text("Send OTP"))),
+                      _buildTextField(
+                          controller: provider.passwordController,
+                          "Create Password *",
+                          obscure: true),
+                      _buildTextField(
+                          controller: provider.confprasswordController,
+                          "Confirm Password *",
+                          obscure: true),
                       SizedBox(height: 20.h),
                       SizedBox(
                         width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () 
-                          {
-                           provider.sendOtp( context);
-                           
-                            // Navigator.push(
-                            //     context,
-                            //     CustomPageTransitions.slide(
-                            //         const SellerRegistrationScreen()));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey.shade300,
-                            padding: EdgeInsets.symmetric(vertical: 14.h),
-                          ),
-                          child: Text("Next",
-                              style: TextStyle(color: Colors.grey.shade600)),
-                        ),
+                        child: provider.isLoading
+                            ? SizedBox(
+                                height: 20,
+                                width: 20,
+                                child:
+                                    Center(child: CircularProgressIndicator()))
+                            : ElevatedButton(
+                                onPressed: () {
+                                  provider.submitUserData(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey.shade300,
+                                  padding: EdgeInsets.symmetric(vertical: 14.h),
+                                ),
+                                child: Text("Next",
+                                    style:
+                                        TextStyle(color: Colors.grey.shade600)),
+                              ),
                       ),
                       SizedBox(height: 16.h),
                       Center(
-                        child: RichText(
-                          text: TextSpan(
-                            text: "Already Registered? ",
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 14.sp),
-                            children: [
-                              TextSpan(
-                                text: "Log In",
-                                style: TextStyle(
-                                    color: Colors.orange,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(context,
+                                CustomPageTransitions.slide(const Login()));
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                              text: "Already Registered? ",
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 14.sp),
+                              children: const [
+                                TextSpan(
+                                  text: "Log In",
+                                  style: TextStyle(
+                                      color: Colors.orange,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       )

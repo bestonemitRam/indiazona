@@ -1,57 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
- 
-  <base href="$FLUTTER_BASE_HREF">
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
-
+  
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="indiazona">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-<script type="text/javascript">
-  var onloadCallback = function() {
-    alert("grecaptcha is ready!");
-  };
-</script>
-<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
-    async defer>
-</script>
+  
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-    <!-- Firebase SDKs -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
-   <script>
-    // Your web app's Firebase configuration
+  <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
+  
+  <!-- reCAPTCHA Enterprise SDK -->
+  <script src="https://www.gstatic.com/recaptcha/enterprise.js" async defer></script>
+   <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lc7mhUrAAAAALvW8KWQcTu1lMPUlKWNNTILH_Sw"></script>
+  <!-- Your code -->
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+
+  <script>
+    // Firebase config
     const firebaseConfig = {
-       apiKey: "AIzaSyBMhgCfdsmssQWCUxw9ivAV0PzX2Pm1H08",
-  authDomain: "indiazona-d54d0.firebaseapp.com",
-  projectId: "indiazona-d54d0",
-  storageBucket: "indiazona-d54d0.firebasestorage.app",
-  messagingSenderId: "855599824563",
-  appId: "1:855599824563:web:c16f34e081c1c874e7bac6",
-  measurementId: "G-M79SS02KKT"
+     apiKey: "AIzaSyBVOlVAUZ7lT9DddBRW1JR8938DGpNqFf0",
+    authDomain: "indiazona-f3b2b.firebaseapp.com",
+    projectId: "indiazona-f3b2b",
+    storageBucket: "indiazona-f3b2b.firebasestorage.app",
+    messagingSenderId: "551163400627",
+    appId: "1:551163400627:web:4c506c424ad8804f46fbc6",
+    measurementId: "G-Q3Y2SRB0JL"
     };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
+
+    // reCAPTCHA callback function
+    var onloadCallback = function() {
+      console.log("reCAPTCHA is ready!");
+      // You can place additional logic here
+    };
   </script>
 
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf9nhUrAAAAALGRlsmtgWCXpKGb6NECggSwxUUr"></script>
+<script>
+  grecaptcha.ready(function() {
+    grecaptcha.execute('6Lf9nhUrAAAAALGRlsmtgWCXpKGb6NECggSwxUUr', {action: 'submit'}).then(function(token) {
+       // Send this token to your backend (use it in `response` param)
+       console.log('Generated token:', token);
+    });
+  });
+</script>
+
+<!-- 
+  <script type="text/javascript">
+    // Load reCAPTCHA when required
+    function renderReCaptcha() {
+      grecaptcha.enterprise.render('recaptcha-container', {
+        'sitekey': '6Lc7mhUrAAAAALvW8KWQcTu1lMPUlKWNNTILH_Sw',
+        'callback': function(response) {
+          console.log("reCAPTCHA response: ", response);
+        }
+      });
+    }
+  </script> -->
 
   <title>indiazona</title>
   <link rel="manifest" href="manifest.json">
+
 </head>
 <body>
-
   <!-- Required for Firebase Phone Auth (Web) -->
   <div id="recaptcha-container"></div>
+  
+  <!-- Flutter Web Bootstrap -->
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

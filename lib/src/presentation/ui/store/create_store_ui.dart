@@ -1,229 +1,8 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:indiazona/src/core/image/app_images.dart';
-
-// class SellerRegistrationScreen extends StatelessWidget {
-//   const SellerRegistrationScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFFEF7EF),
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         elevation: 0,
-//         title: Row(
-//           children: [
-//             Image.asset(AppImages.logo, height: 40),
-//             const Spacer(),
-//             Icon(Icons.notifications_none, color: Colors.black),
-//             const SizedBox(width: 20),
-//             DropdownButton<String>(
-//               value: "Eng",
-//               underline: const SizedBox(),
-//               items: ["Eng", "Hin"]
-//                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-//                   .toList(),
-//               onChanged: (_) {},
-//             ),
-//             const SizedBox(width: 20),
-//             const CircleAvatar(backgroundImage: AssetImage(AppImages.store)),
-//             const SizedBox(width: 8),
-//             const Text("Mr Abc\nSeller",
-//                 style: TextStyle(color: Colors.black, fontSize: 12)),
-//           ],
-//         ),
-//       ),
-//       body: Row(
-//         children: [
-//           Expanded(
-//             flex: 3,
-//             child: Padding(
-//               padding: const EdgeInsets.all(20.0),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   _buildStepper(),
-//                   const SizedBox(height: 20),
-//                   _buildForm(),
-//                 ],
-//               ),
-//             ),
-//           ),
-//           Expanded(
-//             flex: 2,
-//             child: Padding(
-//               padding: const EdgeInsets.all(20.0),
-//               child: Column(
-//                 children: [
-//                   Expanded(
-//                     child: Card(
-//                       color: Colors.white,
-//                       child: Center(
-//                         child: Icon(Icons.play_circle_fill,
-//                             color: Colors.orange, size: 50),
-//                       ),
-//                     ),
-//                   ),
-//                   const SizedBox(height: 2),
-//                   Expanded(child: Image.asset(AppImages.store)),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget _buildStepper() {
-//     final steps = [
-//       "Personal Details",
-//       "Business Details",
-//       "GST",
-//       "Bank Details",
-//       "Pickup Address",
-//       "Acceptance & Approval"
-//     ];
-//     return Row(
-//       children: List.generate(steps.length, (index) {
-//         final isActive = index == 0;
-//         return Expanded(
-//           child: Column(
-//             children: [
-//               CircleAvatar(
-//                 backgroundColor:
-//                     isActive ? Colors.indigo : Colors.grey.shade300,
-//                 radius: 15,
-//                 child: Text("${index + 1}",
-//                     style: const TextStyle(color: Colors.white)),
-//               ),
-//               const SizedBox(height: 4),
-//               Text(steps[index],
-//                   textAlign: TextAlign.center,
-//                   style: const TextStyle(fontSize: 12)),
-//             ],
-//           ),
-//         );
-//       }),
-//     );
-//   }
-
-//   Widget _buildForm() {
-//     return Card(
-//       color: Colors.white,
-//       elevation: 2,
-//       child: Padding(
-//         padding: const EdgeInsets.all(20.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             const Text("Personal Details",
-//                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-//             const SizedBox(height: 5),
-//             const Text(
-//                 "Please fill your information so we can get in touch with you."),
-//             const SizedBox(height: 20),
-//             Row(
-//               children: [
-//                 Expanded(child: _buildTextField(label: "Name", hint: "Sahil")),
-//                 const SizedBox(width: 20),
-//                 Expanded(
-//                     child: _buildTextField(
-//                         label: "Mobile Number", hint: "+91 8548904567")),
-//               ],
-//             ),
-//             const SizedBox(height: 20),
-//             Row(
-//               children: [
-//                 Expanded(child: _buildFilePicker(label: "Your Image")),
-//                 const SizedBox(width: 20),
-//                 Expanded(
-//                     child: _buildTextField(
-//                         label: "Email", hint: "sahil@gmail.com")),
-//               ],
-//             ),
-//             const SizedBox(height: 20),
-//             Row(
-//               children: [
-//                 Expanded(
-//                     child: _buildTextField(
-//                         label: "Aadhaar Card Number", hint: "XXXX XXXX XXXX")),
-//                 const SizedBox(width: 20),
-//                 Expanded(child: _buildFilePicker(label: "Aadhaar Card Image")),
-//               ],
-//             ),
-//             const SizedBox(height: 30),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 OutlinedButton(onPressed: () {}, child: const Text("Back")),
-//                 ElevatedButton(
-//                     onPressed: null, child: const Text("Save & Next")),
-//               ],
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildTextField({required String label, required String hint}) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text("$label *"),
-//         const SizedBox(height: 5),
-//         TextField(
-//           decoration: InputDecoration(
-//             hintText: hint,
-//             border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-//             contentPadding:
-//                 const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-
-//   Widget _buildFilePicker({required String label}) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text("$label *"),
-//         const SizedBox(height: 5),
-//         Row(
-//           children: [
-//             Expanded(
-//               child: TextField(
-//                 enabled: false,
-//                 decoration: InputDecoration(
-//                   hintText: "JPEG & PNG formats",
-//                   border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(5)),
-//                   contentPadding:
-//                       const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-//                 ),
-//               ),
-//             ),
-//             const SizedBox(width: 8),
-//             ElevatedButton(
-//                 onPressed: () async {}, child: const Text("Browse File"))
-//           ],
-//         ),
-//         const SizedBox(height: 4),
-//         Text("Passport size photo under 100 KB.",
-//             style: TextStyle(fontSize: 10, color: Colors.blue.shade700))
-//       ],
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:indiazona/src/core/image/app_images.dart';
+import 'package:indiazona/src/logic/provider/seller_provider.dart';
+import 'package:provider/provider.dart';
 
 class SellerRegistrationScreen extends StatefulWidget {
   const SellerRegistrationScreen({super.key});
@@ -249,6 +28,8 @@ class _SellerRegistrationScreenState extends State<SellerRegistrationScreen> {
     if (_currentStep < steps.length - 1) {
       setState(() {
         _currentStep++;
+           final sellerProvider =
+            Provider.of<SellerProvider>(context, listen: false).registerSeller();
       });
     }
   }
@@ -263,6 +44,7 @@ class _SellerRegistrationScreenState extends State<SellerRegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final sellerProvider = Provider.of<SellerProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: const Color(0xFFFEF7EF),
       appBar: AppBar(
@@ -389,21 +171,22 @@ class _SellerRegistrationScreenState extends State<SellerRegistrationScreen> {
       case 0:
         return _personalDetailsForm();
       case 1:
-        return _dummyForm("Business Details");
+        return _customForm("Business Details");
       case 2:
-        return _dummyForm("GST Details");
+        return _customForm("GST Details");
       case 3:
-        return _dummyForm("Bank Details");
+        return _customForm("Bank Details");
       case 4:
-        return _dummyForm("Pickup Address");
+        return _customForm("Pickup Address");
       case 5:
-        return _dummyForm("Acceptance & Approval");
+        return _customForm("Acceptance & Approval");
       default:
         return const SizedBox();
     }
   }
 
   Widget _personalDetailsForm() {
+    final sellerProvider = Provider.of<SellerProvider>(context, listen: false);
     return _formWrapper(
       title: "Personal Details",
       subtitle: "Please fill your information so we can get in touch with you.",
@@ -414,7 +197,9 @@ class _SellerRegistrationScreenState extends State<SellerRegistrationScreen> {
             const SizedBox(width: 20),
             Expanded(
               child: _buildTextField(
-                  label: "Mobile Number", hint: "+91 8548904567"),
+                  controller: sellerProvider.mobileController,
+                  label: "Mobile Number",
+                  hint: "+91 8548904567"),
             ),
           ],
         ),
@@ -424,7 +209,10 @@ class _SellerRegistrationScreenState extends State<SellerRegistrationScreen> {
             Expanded(child: _buildFilePicker(label: "Your Image")),
             const SizedBox(width: 20),
             Expanded(
-              child: _buildTextField(label: "Email", hint: "sahil@gmail.com"),
+              child: _buildTextField(
+                  controller: sellerProvider.emailController,
+                  label: "Email",
+                  hint: "sahil@gmail.com"),
             ),
           ],
         ),
@@ -433,7 +221,9 @@ class _SellerRegistrationScreenState extends State<SellerRegistrationScreen> {
           children: [
             Expanded(
               child: _buildTextField(
-                  label: "Aadhaar Card Number", hint: "XXXX XXXX XXXX"),
+                  controller: sellerProvider.aadhaarController,
+                  label: "Aadhaar Card Number",
+                  hint: "XXXX XXXX XXXX"),
             ),
             const SizedBox(width: 20),
             Expanded(child: _buildFilePicker(label: "Aadhaar Card Image")),
@@ -443,12 +233,12 @@ class _SellerRegistrationScreenState extends State<SellerRegistrationScreen> {
     );
   }
 
-  Widget _dummyForm(String title) {
+  Widget _customForm(String title) {
     return _formWrapper(
       title: title,
       subtitle: "This is the form for $title.",
       children: [
-        _buildTextField(label: "$title Field 1", hint: "Example 1"),
+        _buildTextField(label: "$title Field 1", hint: ""),
         const SizedBox(height: 20),
         _buildTextField(label: "$title Field 2", hint: "Example 2"),
       ],
@@ -490,13 +280,18 @@ class _SellerRegistrationScreenState extends State<SellerRegistrationScreen> {
     );
   }
 
-  Widget _buildTextField({required String label, required String hint}) {
+  Widget _buildTextField({
+    required String label,
+    required String hint,
+    TextEditingController? controller,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("$label *"),
         const SizedBox(height: 5),
         TextField(
+          controller: controller,
           decoration: InputDecoration(
             hintText: hint,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
